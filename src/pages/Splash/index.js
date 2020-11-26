@@ -1,20 +1,32 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Splash = () => {
+const Splash = ({navigation}) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.replace('Home');
-        }, 3000);
+        }, 2000);
     })
 
     return (
-        <View>
-            <Text>Splash Screen</Text>
+        <View style={styles.wrapper}>
+            <Text style={styles.title}>TODO APP</Text>
         </View>
     )
 }
 
 export default Splash;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    wrapper: {
+        backgroundColor: 'coral',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    title: {
+        color: '#FFF',
+        fontSize: 30,
+        fontWeight: 'bold'
+    }
+});

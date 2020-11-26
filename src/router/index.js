@@ -7,17 +7,26 @@ const Stack = createStackNavigator();
 const Router = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen 
+            {/* <Stack.Screen 
                 name="Splash" 
-                component={Splash} 
-            />
+                component={Splash}
+                options={{
+                    headerShown: false
+                }} 
+            /> */}
             <Stack.Screen 
                 name="Home" 
                 component={Home} 
+                options={{
+                    headerShown: false
+                }} 
             />
             <Stack.Screen 
                 name="About" 
                 component={About} 
+                options={{
+                    headerShown: false
+                }} 
             />
         </Stack.Navigator>
     )

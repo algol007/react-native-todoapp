@@ -6,11 +6,11 @@ import { store } from './redux';
 
 const App = () => {
   return (
-    <Provider store={store}>
+    // <Provider>
       <NavigationContainer>
         <Router />
       </NavigationContainer>
-    </Provider>
+    // </Provider>
   );
 };
 
