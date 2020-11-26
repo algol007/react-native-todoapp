@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { FlatList, StyleSheet, View, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Header, Activity } from '../../components';
 import { AddTodo } from '../../modules';
 
@@ -26,25 +26,48 @@ const Home = () => {
         setText(val)
     }
 
+    const deleteActivity = (item) => {
+        Alert.alert(
+            "Delete Activity",
+            "Are you sure to delete this activity?",
+            [
+                {
+                    text: "Cancel",
+                    // onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => {
+                    setActivity(activity.filter(activity => activity.id !== item.id))
+                }}
+            ],
+            { cancelable: false }  
+        )  
+    }
+
     return (
-        <View style={styles.homeWrapper}>
-            <Header />
-            <View style={styles.container}>
-                <AddTodo 
-                    onPress={() => submitActivity(text)}
-                    onChangeText={(val) => onChangeText(val)}
-                    // value={text}
-                />
-                <FlatList 
-                    // numColumns={2}
-                    keyExtractor={(item) => item.id}
-                    data={activity}
-                    renderItem={({ item }) =>
-                        <Activity activity={item.title} />
-                    }
-                />
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss();
+            console.log('Keyboard dismiss');
+        }}>
+            <View style={styles.homeWrapper}>
+                <Header />
+                <View style={styles.container}>
+                    <AddTodo 
+                        onPress={() => submitActivity(text)}
+                        onChangeText={(val) => onChangeText(val)}
+                    />
+                    <View style={styles.activityList}>
+                        <FlatList 
+                            keyExtractor={(item) => item.id}
+                            data={activity}
+                            renderItem={({ item }) =>
+                                <Activity activity={item.title} onPress={() => deleteActivity(item)} />
+                            }
+                        />
+                    </View>
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -56,6 +79,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     container: {
-        padding: 10,
+        padding: 20,
+        flex: 1
+    },
+    activityList: {
+        flex: 1,
+        // backgroundColor: 'yellow'
     }
 });
