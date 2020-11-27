@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, View, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { FlatList, StyleSheet, View, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import { Header, Activity } from '../../components';
 import { AddTodo } from '../../modules';
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [activity, setActivity] = useState([
         { id: '1', title: 'Plan' },
         { id: '2', title: 'Pray' },
@@ -61,7 +61,11 @@ const Home = () => {
                             keyExtractor={(item) => item.id}
                             data={activity}
                             renderItem={({ item }) =>
-                                <Activity activity={item.title} onPress={() => deleteActivity(item)} />
+                                <TouchableOpacity 
+                                    onLongPress={() => deleteActivity(item)}
+                                    onPress={() => navigation.navigate('Detail', item)}>
+                                    <Activity activity={item.title} />
+                                </TouchableOpacity>
                             }
                         />
                     </View>
@@ -84,6 +88,5 @@ const styles = StyleSheet.create({
     },
     activityList: {
         flex: 1,
-        // backgroundColor: 'yellow'
     }
 });
